@@ -1,18 +1,30 @@
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import { useEffect } from "react";
+import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
 
 export default function App(){
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
 
-  console.log(`Window Width = ${windowWidth} AND Window Height = ${windowHeight}`)
+  useEffect(()=>{
+    console.log(`Window Width = ${windowWidth} AND Window Height = ${windowHeight}`)
+  }, [windowWidth, windowHeight])
+
 
   return (
     <View style={style.container}>
         
-        <View style={style.boxContainer}>
+        <View style={[style.boxContainer,
+          {
+            width: windowWidth > 500 ? "30%":"60%",
+            height: windowHeight > 800 ? "30%":"50%",
+          }
+        ]}>
           <View style={style.boxContainerBg}></View>
-          <Text style={style.boxContainerText}>
+          <Text style={[style.boxContainerText,
+            {
+              fontSize: windowWidth > 500 ? 50: 24,
+            }
+          ]}>
             Hello
           </Text>
         </View>
@@ -31,8 +43,6 @@ const style = StyleSheet.create({
     alignItems: "center"
   },
   boxContainer:{
-    width: windowWidth > 500 ? "30%":"60%",
-    height: windowHeight > 800 ? "30%":"50%",
     borderWidth: 5,
     borderColor: 'blue',
     justifyContent: "center",
@@ -50,7 +60,6 @@ const style = StyleSheet.create({
   },
   boxContainerText:{
     textAlign:"center",
-    fontSize: windowWidth > 500 ? 50: 24,
     fontWeight: 600
   }
 })
