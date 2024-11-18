@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { View,  Text, Modal, Button } from "react-native";
+import { View, Button, StatusBar } from "react-native";
 
 
 export default function App(){
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isStatusBarHidden, setIsStatusBarHidden] = useState(false)
 
   return (
     <View style={{
@@ -14,28 +14,13 @@ export default function App(){
       gap:30,
       }}>
 
-      <Button title="Open Modal" color={"midnightblue"} onPress={()=>setIsModalVisible(true)} />
+      <StatusBar 
+        hidden={isStatusBarHidden} 
+        barStyle={"dark-content"}        // "default" -> light content on Android and dark content on IOS
+        backgroundColor="lightblue"     // only for Android. Background remains transparent for IOS
+      />
 
-      <Modal 
-        transparent
-        visible={isModalVisible} 
-        style={{alignSelf:"center"}}
-        onRequestClose={()=>setIsModalVisible(false)}       // for Android -> back button and IOS/Android -> Gestures
-        animationType="fade"    // slide
-        // presentationStyle="fullScreen"  // Note: fullScreen and transparent are not supported together
-        // presentationStyle="pageSheet"  // Affects only IOS
-        >
-        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-          <View style={{width: 300, height:300, backgroundColor:'white', borderRadius:30}}>
-            <Text style={{textAlign:"center", margin:"auto", fontSize:30}}>
-              Modal Content!
-            </Text>
-            <Button title="Close" color={"darkblue"}  onPress={()=>setIsModalVisible(false)} />
-          </View>
-        </View>
-      </Modal>
-    
-
+      <Button title={isStatusBarHidden?"Turn On Status Bar":"Turn Off Status Bar"} color={"midnightblue"} onPress={()=>setIsStatusBarHidden(!isStatusBarHidden)} />
 
     </View>
   )
