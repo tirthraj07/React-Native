@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { View, Button, StatusBar } from "react-native";
+import { View, Button, ActivityIndicator } from "react-native";
 
 
 export default function App(){
-  const [isStatusBarHidden, setIsStatusBarHidden] = useState(false)
+  const [isActivityIndicatorVisible, setIsActivityIndicatorVisible] = useState(true)
 
   return (
     <View style={{
@@ -14,13 +14,17 @@ export default function App(){
       gap:30,
       }}>
 
-      <StatusBar 
-        hidden={isStatusBarHidden} 
-        barStyle={"dark-content"}        // "default" -> light content on Android and dark content on IOS
-        backgroundColor="lightblue"     // only for Android. Background remains transparent for IOS
-      />
+      <ActivityIndicator />     
 
-      <Button title={isStatusBarHidden?"Turn On Status Bar":"Turn Off Status Bar"} color={"midnightblue"} onPress={()=>setIsStatusBarHidden(!isStatusBarHidden)} />
+      <ActivityIndicator size={"large"} />    
+      {/* Default Size = small */}
+      
+      <ActivityIndicator size={"large"} color={"midnightblue"}/>
+
+      <ActivityIndicator size={"large"} color={"midnightblue"} animating={isActivityIndicatorVisible}/>
+
+
+      <Button title={isActivityIndicatorVisible?"Turn Off Activity Indicator":"Turn On Activity Indicator"} color={"midnightblue"} onPress={()=>setIsActivityIndicatorVisible(!isActivityIndicatorVisible)} />
 
     </View>
   )
