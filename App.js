@@ -1,7 +1,6 @@
-import { View, Image, Text, ImageBackground } from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
 
 const logoImg = require("./assets/adaptive-icon.png");
-const splashIcon = require("./assets/splash-icon.png");
 
 export default function App(){
   return (
@@ -11,24 +10,18 @@ export default function App(){
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <ImageBackground source={splashIcon} style={{width:100, height:100}}>
-        <Text>Image Background</Text>
-      </ImageBackground>
+      {/* Scroll View is bounded by the height of the parent element, which in this case is the View Component which takes the entire screen */}
+      <ScrollView>
+        <Image source={logoImg} style={{width:300, height:300}}/>
 
-      <Text>Below is an example of static images</Text>
-      <Image 
-        source={logoImg} 
-        style={{width: 300, height: 300}}
-      />
-      
-      <Text>Below is an example of network images</Text>
-      <Image 
-        source={{uri: "https://picsum.photos/200"}} 
-        style={{width: 300, height: 300}}
-      />
+          {Array.from({ length: 100 }, (_, index) => (
+            <Text key={index} style={{ fontSize: 16, marginVertical: 4 }}>
+              Hello {index + 1}
+            </Text>
+          ))}
 
-
-
+        <Image source={logoImg} style={{width:300, height:300}}/> 
+      </ScrollView>
     </View>
   )
 }
