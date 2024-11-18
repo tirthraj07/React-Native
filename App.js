@@ -1,12 +1,9 @@
-import { View, Image, Text, Pressable } from "react-native";
+import { useState } from "react";
+import { View,  Text, Modal, Button } from "react-native";
 
-const logoImage = require('./assets/adaptive-icon.png');
 
 export default function App(){
-
-  const handlePress = ()=>{
-    console.log("Senpai pressed me harderrr");
-  }
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   return (
     <View style={{
@@ -15,32 +12,30 @@ export default function App(){
       justifyContent: 'center',
       alignItems: 'center',
       gap:30,
-    }}>
+      }}>
 
-    <Pressable onPress={()=>{console.log("Bro pressed me")}}>
-      <Text>Press Me Senpaiiii</Text>
-    </Pressable>
+      <Button title="Open Modal" color={"midnightblue"} onPress={()=>setIsModalVisible(true)} />
 
-    <Pressable onPress={()=>{console.log("Image Pressed")}}>
-      <Image source={logoImage} style={{width:300, height:300}} />
-    </Pressable>
-
-    {/* 
+      <Modal 
+        transparent
+        visible={isModalVisible} 
+        style={{alignSelf:"center"}}
+        onRequestClose={()=>setIsModalVisible(false)}       // for Android -> back button and IOS/Android -> Gestures
+        animationType="fade"    // slide
+        // presentationStyle="fullScreen"  // Note: fullScreen and transparent are not supported together
+        // presentationStyle="pageSheet"  // Affects only IOS
+        >
+        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{width: 300, height:300, backgroundColor:'white', borderRadius:30}}>
+            <Text style={{textAlign:"center", margin:"auto", fontSize:30}}>
+              Modal Content!
+            </Text>
+            <Button title="Close" color={"darkblue"}  onPress={()=>setIsModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     
-      Pressable:
 
-      Pressable is a wrapper component that detects various stages of press
-      interactions on its defined children
-
-      You can create a custom button using Pressable
-
-      - onPressIn : is called when a press is activated
-      - onLongPress : is trigger when a press is held for longer than 500 ms
-      - onPressOut: is called when the press gesture is deactivated
-      
-      Refer: https://youtu.be/a-O0mtim9LY?si=3g1MUeCITCH8nUor&t=200
-
-    */}
 
     </View>
   )
