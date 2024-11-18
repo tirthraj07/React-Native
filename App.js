@@ -1,77 +1,22 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function App(){
+
+  console.log(`Window Width = ${windowWidth} AND Window Height = ${windowHeight}`)
 
   return (
     <View style={style.container}>
         
-        <View 
-        style={
-        {
-          width: 100,
-          height: 100,
-          borderWidth: 5,
-          borderStyle:'solid',
-          borderColor: 'black',
-          position: 'relative',
-          left: 50,
-          top: 20
-        }
-        }>
-          <Text>
-            Box 1
-          </Text>
-        </View>
-        <View 
-        style={
-        {
-          width: 100,
-          height: 100,
-          borderWidth: 5,
-          borderStyle:'solid',
-          borderColor: 'black',
-          position: 'relative',
-        }
-        }>
-          <Text>
-            Box 2
-          </Text>
-        </View>
-        <View 
-        style={
-        {
-          width: 100,
-          height: 100,
-          borderWidth: 5,
-          borderStyle:'solid',
-          borderColor: 'black',
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          transform: [{translateX: '-50%'}, {translateY:'-50%'}]
-        }
-        
-        }>
-          <Text>
-            Box 3
+        <View style={style.boxContainer}>
+          <View style={style.boxContainerBg}></View>
+          <Text style={style.boxContainerText}>
+            Hello
           </Text>
         </View>
 
-        <View 
-        style={
-        {
-          width: 100,
-          height: 100,
-          borderWidth: 5,
-          borderStyle:'solid',
-          borderColor: 'black',
-          position: 'relative',
-        }
-        }>
-          <Text>
-            Box 4
-          </Text>
-        </View>
 
     </View>
   )
@@ -82,8 +27,30 @@ const style = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: 'plum',
-    borderWidth: 10,
-    borderColor: 'yellow',
-    position:"relative"
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  boxContainer:{
+    width: windowWidth > 500 ? "30%":"60%",
+    height: windowHeight > 800 ? "30%":"50%",
+    borderWidth: 5,
+    borderColor: 'blue',
+    justifyContent: "center",
+    alignItems:"center",
+    position:"relative",
+    isolation:"isolate" 
+  },
+  boxContainerBg:{ 
+    position:"absolute",
+    width:"100%",
+    height:"100%",
+    backgroundColor:"blue",
+    opacity:0.3,
+    zIndex: -1
+  },
+  boxContainerText:{
+    textAlign:"center",
+    fontSize: windowWidth > 500 ? 50: 24,
+    fontWeight: 600
   }
 })
