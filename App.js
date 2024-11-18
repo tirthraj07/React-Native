@@ -1,27 +1,32 @@
-import { View, Text, ScrollView, Image } from "react-native";
-
-const logoImg = require("./assets/adaptive-icon.png");
+import { View, Button } from "react-native";
 
 export default function App(){
+
+  const handlePress = ()=>{
+    console.log("Senpai pressed me harderrr");
+  }
+
   return (
     <View style={{
       flex: 1,
       backgroundColor: 'plum',
       justifyContent: 'center',
       alignItems: 'center',
+      gap:30,
     }}>
-      {/* Scroll View is bounded by the height of the parent element, which in this case is the View Component which takes the entire screen */}
-      <ScrollView>
-        <Image source={logoImg} style={{width:300, height:300}}/>
 
-          {Array.from({ length: 100 }, (_, index) => (
-            <Text key={index} style={{ fontSize: 16, marginVertical: 4 }}>
-              Hello {index + 1}
-            </Text>
-          ))}
+      {/* You can use button component like follows */}
+      <Button title="Press Me Senpai"/>
 
-        <Image source={logoImg} style={{width:300, height:300}}/> 
-      </ScrollView>
+      {/* Similar to onClick in React, you can use onPress */}
+      <Button title="Press Me Harder" onPress={()=>{console.log("Senpai pressed me harder")}}/>
+
+      <Button title="Press Me Harderrr" onPress={handlePress}/>
+
+      {/* You can also style it */}
+      <Button title="Press Me in the moonlight Senpai" color="midnightblue"/>
+
+
     </View>
   )
 }
