@@ -16,15 +16,3 @@ expo init <project-name>
 cd <project-name>
 npm start
 ```
-
-## Core Components in React Native
-
-React Native offers a collection of essential pre-built components known as "Core components" which are readily available for building your native app's user interface
-
-Eg:
-
-- <View>
-- <Text>
-- <Image>
-- <ScrollView>
-- <TextInput>
