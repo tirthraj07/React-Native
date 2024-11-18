@@ -5,15 +5,19 @@ export default function App(){
   return (
     <View style={style.container}>
         
-      {/*  You can combine styles by inserting them into an array.  */}
-      {/*  Note: If two styles conflict, the latter (rightmost) gets precedence  */}  
-      <View style={[style.box, style.pinkBg]}>
+      {/*
+          Note: Shadow Casting are different for IOS and Android
+          For IOS, you need to specify: shadowColor, shadowOffset, shadowOpacity, shadowRadius
+          For Android: you just need to specify: shadowColor, elevation
+      */}
+
+      <View style={[style.box, style.pinkBg, style.iosShadow]}>
         <Text style={style.boxText}>
           Hello
         </Text>
       </View>
       
-      <View style={[style.box, style.lightGreenBg]}>
+      <View style={[style.box, style.lightGreenBg, style.androidShadow]}>
         <Text style={style.boxText}>
           World
         </Text>
@@ -58,6 +62,21 @@ const style = StyleSheet.create({
     fontWeight:"700",
     letterSpacing:5,
     userSelect:"text"
+  },
+
+  iosShadow:{
+    shadowColor: "#333333",
+    shadowOffset:{
+      width: 6,
+      height: 6,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4
+  },
+
+  androidShadow: {
+    shadowColor: "black",
+    elevation: 5
   }
 
 })
