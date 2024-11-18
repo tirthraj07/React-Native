@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { View, Button, ActivityIndicator } from "react-native";
+import { View, Button, Alert } from "react-native";
 
 
 export default function App(){
-  const [isActivityIndicatorVisible, setIsActivityIndicatorVisible] = useState(true)
 
   return (
     <View style={{
@@ -14,17 +12,45 @@ export default function App(){
       gap:30,
       }}>
 
-      <ActivityIndicator />     
+      {/*  You can specify the title in the alert  */}
+      <Button 
+        title="Alert #1"  
+        onPress={()=>Alert.alert("ERROR!")}
+      />
 
-      <ActivityIndicator size={"large"} />    
-      {/* Default Size = small */}
-      
-      <ActivityIndicator size={"large"} color={"midnightblue"}/>
+      {/*  You can also specify the message in the alert  */}
+      <Button 
+        title="Alert #2"  
+        onPress={()=>Alert.alert("ERROR!", "This is the alert message")}
+      />
 
-      <ActivityIndicator size={"large"} color={"midnightblue"} animating={isActivityIndicatorVisible}/>
+      {/*  You can also specify the buttons in the alert box. On Android -> MAX 3 Buttons. No restrictions on IOS  */}
+      <Button   
+        title="Alert #2"  
+        onPress={()=>Alert.alert("ERROR!", "This is the alert message", 
+          [
+            {
+              text:"Cancel",
+              onPress: ()=>{console.log("cancel pressed")}
+            },
+            {
+              text:"Okay",
+              onPress: ()=>{console.log("Okay pressed")}
+            },
+            {
+              text:"Not Okay",
+              onPress: ()=>{console.log("Not Okay pressed")}
+            }
+          ]
+        )}
+      />
 
+      {/*
 
-      <Button title={isActivityIndicatorVisible?"Turn Off Activity Indicator":"Turn On Activity Indicator"} color={"midnightblue"} onPress={()=>setIsActivityIndicatorVisible(!isActivityIndicatorVisible)} />
+          There are many more APIs. Check docs: https://reactnative.dev/docs/alert
+
+      */}
+
 
     </View>
   )
