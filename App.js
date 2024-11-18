@@ -6,22 +6,25 @@ export default function App(){
     <View style={style.container}>
         
       {/*
-          Note: Shadow Casting are different for IOS and Android
-          For IOS, you need to specify: shadowColor, shadowOffset, shadowOpacity, shadowRadius
-          For Android: you just need to specify: shadowColor, elevation
+          Note: Style Inheritance is not possible in different elements
+          But Style Inheritance is possible in Text to Text Subtrees
+
+          For example, the View contains styles
+              fontSize:50,
+              color: 'blue'
+          
+          But they aren't being inherited by the child Text Component
+
+          But the BlueText Text Component inherited the Weight from its parent Text Component
+
       */}
 
-      <View style={[style.box, style.pinkBg, style.iosShadow]}>
+      <View style={style.box}>         
         <Text style={style.boxText}>
-          Hello
+          Hello World! I am  <Text style={style.blueTextCol}>in blue </Text>
         </Text>
       </View>
-      
-      <View style={[style.box, style.lightGreenBg, style.androidShadow]}>
-        <Text style={style.boxText}>
-          World
-        </Text>
-      </View>
+
 
      </View>
   )
@@ -42,41 +45,21 @@ const style = StyleSheet.create({
     height: 300,
     flexDirection:"column",
     justifyContent:'center',
+    backgroundColor: 'pink',
     alignItems:'center',
     borderColor:'black',
     borderWidth:1,
-    borderRadius:20
+    borderRadius:20,
+    fontSize:50,
+    color: 'blue'
   },
 
-  pinkBg: {
-    backgroundColor: 'pink'
-  },
-
-  lightGreenBg: {
-    backgroundColor: 'lightgreen'
-  },
-  
   boxText:{
-    fontSize:30,
-    textDecorationLine:"underline",
-    fontWeight:"700",
-    letterSpacing:5,
-    userSelect:"text"
+    fontWeight:900
   },
 
-  iosShadow:{
-    shadowColor: "#333333",
-    shadowOffset:{
-      width: 6,
-      height: 6,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4
-  },
-
-  androidShadow: {
-    shadowColor: "black",
-    elevation: 5
+  blueTextCol: {
+    color: "blue"
   }
 
 })
