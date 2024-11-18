@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import Greet from "./components/Greet";
 
 export default function App(){
 
@@ -12,9 +11,6 @@ export default function App(){
       gap:30,
       }}>
         
-        <Greet name={"Tirthraj"} />
-        <Greet name={"Aditya"} />
-        <Greet name={"Bruce Wayne"} />
 
      </View>
   )
