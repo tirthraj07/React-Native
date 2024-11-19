@@ -6,7 +6,7 @@ export default function App(){
   return (    
     <SafeAreaView style={{flex: 1, backgroundColor:"#f5f5f5"}}>
       <FlatList
-        data={[]}
+        data={pokemonList}
         renderItem={({item})=>{
           return(
           <View key={item.id} style={style.boxContainer}>
@@ -26,6 +26,18 @@ export default function App(){
         ListEmptyComponent={
           <Text style={{textAlign:"center"}}>
             No items found
+          </Text>
+        }
+
+        ListHeaderComponent={
+          <Text style={{textAlign: "center", fontSize: 30, marginBottom: 10}}>
+            List of Pokemon
+          </Text>
+        }
+
+        ListFooterComponent={
+          <Text style={{textAlign: "center", fontSize: 30, marginTop: 10}}>
+            End of List
           </Text>
         }
 
