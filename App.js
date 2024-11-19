@@ -6,7 +6,7 @@ export default function App(){
   return (    
     <SafeAreaView style={{flex: 1, backgroundColor:"#f5f5f5"}}>
       <FlatList
-        data={pokemonList}
+        data={[]}
         renderItem={({item})=>{
           return(
           <View key={item.id} style={style.boxContainer}>
@@ -21,6 +21,12 @@ export default function App(){
         ItemSeparatorComponent={
           <View style={{height: 20}}>
           </View>
+        }
+
+        ListEmptyComponent={
+          <Text style={{textAlign:"center"}}>
+            No items found
+          </Text>
         }
 
       />
