@@ -8,7 +8,6 @@ export default function App(){
       <FlatList
         data={pokemonList}
         renderItem={({item})=>{
-          console.log(item.id)
           return(
           <View key={item.id} style={style.boxContainer}>
             <Text style={style.pokemonName}>{item.name}</Text> 
@@ -18,6 +17,11 @@ export default function App(){
           </View>
           )
         }}  
+        
+        ItemSeparatorComponent={
+          <View style={{height: 20}}>
+          </View>
+        }
 
       />
     </SafeAreaView>
@@ -28,7 +32,6 @@ export default function App(){
 const style = StyleSheet.create({
   boxContainer:{
     borderWidth:1,
-    marginBottom: 20,
     gap:3,
     justifyContent: "center",
     alignItems:"center",
