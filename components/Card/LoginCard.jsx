@@ -2,12 +2,14 @@ import { View, Text, Image, TextInput, StyleSheet, KeyboardAvoidingView, Platfor
 import { useState } from "react";
 import * as React from "react";
 import { Button } from "@rneui/base";
-import Icon from "react-native-vector-icons/dist/MaterialCommunityIcons";
-import LinearGradient from "react-native-linear-gradient";
 
 
 
 export default function LoginCard(){
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [errors, setErrors] = useState({})
 
     const [focusState, setFocusState] = useState({});
 
@@ -18,6 +20,30 @@ export default function LoginCard(){
     const handleBlur = (inputName) => {
         setFocusState((prev) => ({ ...prev, [inputName]: false }));
     };
+
+    const validateForm = () => {
+        const err = {}
+
+        if(String(email).trim() === "") err.email = "Please Enter Email"
+
+        if(String(password).trim() === "") err.password = "Please Enter Password"
+
+        // You can also do regex checks for client-side validation
+
+        setErrors(err)
+        
+        return Object.keys(err).length === 0     // Return true is there are no errors. We will use this during handleSubmit
+    }   
+
+
+    const handleSubmit = () => {
+        if(validateForm()){
+            console.log("Submitted", email, " : ", password)
+            setEmail("")
+            setPassword("")
+            setErrors({})
+        }
+    }
 
     return (
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS == "ios" ? 100: 0} style={styles.container}>
@@ -31,12 +57,19 @@ export default function LoginCard(){
                 style={[styles.inputText, {borderWidth: focusState.email ? 2 : 1, opacity: focusState.email ? 1:0.8}]} 
                 onFocus={() => handleFocus('email')}
                 onBlur={() => handleBlur('email')}
+                
+                onChangeText={setEmail}
+                value={email}
 
                 keyboardType="email-address"
 
                 autoCapitalize="none"
                 autoCorrect={false}
             />
+
+            {
+                errors.email && <Text style={styles.errorText}>{errors.email}</Text>
+            }
 
 
             <Text style={styles.labelText}>Password</Text>
@@ -48,12 +81,19 @@ export default function LoginCard(){
                 onFocus={() => handleFocus('password')}
                 onBlur={() => handleBlur('password')}
 
+                onChangeText={setPassword}
+                value={password}
+
                 keyboardType="default"
 
                 secureTextEntry
                 autoCapitalize="none"
                 autoCorrect={false}
             />
+
+            {
+                errors.password && <Text style={styles.errorText}>{errors.password}</Text>
+            }
 
             <Button
                 type="outline"
@@ -73,7 +113,7 @@ export default function LoginCard(){
                 iconContainerStyle={{ background: "#000" }}
                 loadingProps={{ animating: true }}
                 loadingStyle={{}}
-                onPress={() => console.log("button clicked")}
+                onPress={handleSubmit}
                 title="Login"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5, color: "white" }}
@@ -113,5 +153,9 @@ const styles = StyleSheet.create({
         borderRadius: 10, 
         color: "white", 
         padding: 10
+    },
+    errorText: {
+        color: "red",
+        fontWeight: "semibold"
     }
 })
