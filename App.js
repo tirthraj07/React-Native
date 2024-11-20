@@ -1,10 +1,7 @@
-import { View, Text, SafeAreaView, FlatList, StyleSheet, Platform} from "react-native";
-import pokemonList from "./data.json";
+import { View, Text, SafeAreaView, StyleSheet, Platform, SectionList} from "react-native"; 
+import pokemonList from "./grouped_data.json";
 
-export default function App(){
-
-  return (    
-    <SafeAreaView style={{flex: 1, backgroundColor:"#f5f5f5"}}>
+/*
       <FlatList
         data={pokemonList}
         renderItem={({item})=>{
@@ -42,6 +39,49 @@ export default function App(){
         }
 
       />
+*/
+
+
+export default function App(){
+
+
+  // The SectionList component has two mandatory props
+  // 1. is the sections -> source of information
+  // 2. renderItem -> function that returns the JSX to render each item 
+
+  // Note that the source information must have a 'data' array that is used for rendering
+   
+  return (    
+    <SafeAreaView style={{flex: 1, backgroundColor:"#f5f5f5"}}>
+
+      <SectionList 
+        sections={pokemonList}
+        renderItem={({item})=>{
+          // Item is each element in the data array
+
+          return (
+            <View style={style.boxContainer}>
+              <Text style={style.pokemonName}>{item}</Text> 
+            </View>
+          )
+        }}      
+
+        renderSectionHeader={({section})=>(
+          <View style={{justifyContent: 'center', flexDirection:"row"}}>
+            <Text style={style.pokemonType}>{section.type}</Text>
+          </View>
+        )}
+      
+        ItemSeparatorComponent={()=>(
+          <View style={{height: 10}} ></View>
+        )}
+
+        SectionSeparatorComponent={()=>(
+          <View style={{height: 20}}></View>
+        )}
+
+      />
+
     </SafeAreaView>
   )
 }
@@ -50,7 +90,6 @@ export default function App(){
 const style = StyleSheet.create({
   boxContainer:{
     borderWidth:1,
-    gap:3,
     justifyContent: "center",
     alignItems:"center",
     backgroundColor:"white",
