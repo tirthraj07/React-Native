@@ -52,6 +52,43 @@ cd <project-name>
 npm start
 ```
 
+## UI Library
+
+- [React Native Elements](https://reactnativeelements.com/docs)
+
+## SVG Setup
+
+```bash
+npm install --save-dev react-native-svg-transformer
+```
+
+For Expo SDK v41.0.0 or newer
+Merge the contents from your project's metro.config.js file with this config (**create the file if it does not exist already**).
+
+`metro.config.js`:
+
+```javascript
+const { getDefaultConfig } = require("expo/metro-config");
+
+module.exports = (() => {
+  const config = getDefaultConfig(__dirname);
+
+  const { transformer, resolver } = config;
+
+  config.transformer = {
+    ...transformer,
+    babelTransformerPath: require.resolve("react-native-svg-transformer/expo"),
+  };
+  config.resolver = {
+    ...resolver,
+    assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
+    sourceExts: [...resolver.sourceExts, "svg"],
+  };
+
+  return config;
+})();
+```
+
 ## Ideal Project Structure
 
 Reference: [React Native folder structure](https://medium.com/@nitishprasad/react-native-folder-structure-e9ceab3150f3)
