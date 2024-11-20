@@ -4,36 +4,85 @@ import { useState } from "react";
 
 export default function App(){
 
-  const [pin, setPin] = useState();
-  const [isPinFocused, setIsPinFocused] = useState(false);
+  const [name, setName] = useState("");
+  const [story, setStory] = useState("");
+
+  const [focusState, setFocusState] = useState({ name: false });
+
+  /*
+    To avoid creating separate useState hooks for each input, 
+    you can use a single state object to manage the focus state of multiple inputs. 
+    Here's a more scalable approach
+  */
+
+  const handleFocus = (inputName) => {
+    setFocusState((prev) => ({ ...prev, [inputName]: true }));
+  };
+
+  const handleBlur = (inputName) => {
+    setFocusState((prev) => ({ ...prev, [inputName]: false }));
+  };
 
   return (    
     <SafeAreaView style={{flex: 1, backgroundColor:"#f5f5f5", paddingTop: StatusBar.currentHeight, paddingLeft: 5}}>
 
       <TextInput 
-        value={pin}
-        onChangeText={setPin}
-        placeholder="Enter Pin"
-        secureTextEntry         // Makes the text input hidden -> Password
+        value={name}
+        onChangeText={setName}
+        placeholder="Enter Name"
+
         keyboardAppearance="default"
-        keyboardType="numeric"
-        onFocus={() => setIsPinFocused(true)} // Use onFocus for when the input is focused
-        onBlur={() => setIsPinFocused(false)} // Use onBlur for when the input loses focus
+        keyboardType="default"
+        onFocus={() => handleFocus('name')}
+        onBlur={() => handleBlur('name')}
 
         autoCapitalize="none"   // Use this for fields where there might be non-regular english like passwords emails usernames etc
         autoCorrect={false}
-
+        
         style={{
           backgroundColor : "white",
           fontSize: 15,
-          borderWidth: isPinFocused? 1: 0,
+          borderWidth: focusState.name ? 1 : 0,
           marginBottom: 10
         }}
     />
 
+
+    <TextInput 
+          value={story}
+          onChangeText={setStory}
+        
+          multiline={true}
+        
+          placeholder="Enter your story"
+          keyboardAppearance="default"
+          keyboardType="default"
+          onFocus={() => handleFocus('multiLineInput')}
+          onBlur={() => handleBlur('multiLineInput')}
+
+          autoCapitalize="none"   // Use this for fields where there might be non-regular english like passwords emails usernames etc
+          autoCorrect={false}
+          
+          style={{
+            backgroundColor : "white",
+            fontSize: 15,
+            borderWidth: focusState.multiLineInput ? 1 : 0,
+            marginBottom: 10,
+            minHeight: 100,
+            textAlignVertical: "top"
+          }}
+      />
+
     <View>
       <Text style={{fontSize: 30}}>
-        Hello {pin}
+        I am {String(name).trim()===""?"...":name}
+      </Text>
+    </View>
+
+    <View style={{marginTop:20}}>
+      <Text style={{fontSize:15}}>and this is my story..</Text>
+      <Text style={{fontSize: 30}}>
+        {String(story).trim()===""?"...":story}
       </Text>
     </View>
 
