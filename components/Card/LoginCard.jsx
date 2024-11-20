@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, StyleSheet } from "react-native";
+import { View, Text, Image, TextInput, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { useState } from "react";
 import * as React from "react";
 import { Button } from "@rneui/base";
@@ -20,7 +20,7 @@ export default function LoginCard(){
     };
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS == "ios" ? 100: 0} style={styles.container}>
             <Text style={styles.titleText}>Login Credentials</Text>
             
             <Text style={styles.labelText}>Email</Text>
@@ -78,7 +78,7 @@ export default function LoginCard(){
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5, color: "white" }}
             />
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
