@@ -56,6 +56,12 @@ npm start
 
 - [React Native Elements](https://reactnativeelements.com/docs)
 
+## Async Storage
+
+> Note: Older version of [Async Storage](https://reactnative.dev/docs/asyncstorage.html) has been deprecated. Use the community package instead
+
+- [react-native-community/react-native-async-storage](https://react-native-async-storage.github.io/async-storage/docs/usage)
+
 ## SVG Setup
 
 ```bash
